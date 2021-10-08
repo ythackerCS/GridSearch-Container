@@ -31,8 +31,8 @@
   * Will work as just python script convert to jupyternotebook and run on there. 
 
 ## Running in general: 
-  * Gridsearch.py load data from mortality.csv makes arrays for trining/testing/val and lunches a gridsearchCV
-  * For my use cases i have dockersized it so I could run with access to GPU, your usecases may vary  
+  * Gridsearch.py loads data from mortality.csv makes arrays for trining/testing/val and lunches a gridsearchCV
+  * For my use cases I have dockersized it so I could run with access to GPU, your usecases may vary  
   * There are arguments needed to run this pipline which can be found within the gridsearch.py script 
   * there is an output file called params.txt which will be output at the end of the gridsearch with all results and best params found 
 
