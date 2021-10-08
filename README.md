@@ -2,7 +2,7 @@
 
 ## Introduction
 
-> This container will load images specifically "PIXELDATA" from a dicom and match it to is given classification vector. Then Using a defult architecture it will build and train a model over a given set of gridsearch parameters. There are a multitude of parameters that the user is able to modify for generating the data set as well as 
+> This container will load images specifically "PIXELDATA" from a dicom and match it to is given classification vector. Then Using a defult architecture it will build and train a model over a given set of gridsearch parameters. There are a multitude of parameters that the user is able to modify for generating the data set as well as the hyperparameter arrays over which the gridsearch is done. 
 
 ##  Design: 
   * Used python 
