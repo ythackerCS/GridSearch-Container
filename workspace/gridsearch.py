@@ -213,7 +213,13 @@ def splitData(px_size, visulize = False, testSize = 0.30, randState = 50, underS
 ## ------------------ END data ulities -----------------------##
 
 
+
+## --- LOAD data from "mortality.csv" and generate train/validation/test datasets" ---### 
+
+#if your csv is called something else change mortality to what ever the name of the csv is 
 df_train = pd.read_csv('/csvLocation/{0}.csv'.format("mortality"))
+
+#if you change px size please make sure you go to the model and also change the input layer from [50,50,1] --> [x,x,1] where x is your given pixel size 
 image_train, image_test, image_val, label_train, label_test, label_val, uids_train, uids_test, uids_val = splitData(px_size=50, visulize=False, testSize = .2, randState = 50, underSamp = False, numClasses=2)
 
 
@@ -251,6 +257,7 @@ def create_convolution_block(input_layer, n_filters, name=None, kernel=3, paddin
     layer = tfa.layers.InstanceNormalization(axis=1)(layer) 
     return tf.keras.layers.LeakyReLU()(layer)
 
+#NOTE!!!!if you changed px size make sure to change input shape here 
 def isensee2017_classification_2d(input_shape=[50,50,1],
                                 nb_classes = 2,
                                 n_base_filters=16,

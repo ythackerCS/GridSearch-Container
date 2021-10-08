@@ -1,49 +1,47 @@
-# Example python/pyxnat Docker image and XNAT command
+# GRIDSearch-Container 
 
-##
+## Introduction
 
-### Contents
+> This container will load images specifically "PIXELDATA" from a dicom and match it to is given classification vector. Then Using a defult architecture it will build and train a model over a given set of gridsearch parameters. There are a multitude of parameters that the user is able to modify for generating the data set as well as 
 
-- build.sh 
-    
-    Builds and tags the Docker image as `xnat/pyxnat-demo:latest`. Customize the tag in this image to fit your specification
+##  Design: 
+  * Used python 
+  * full list of packages needed: (listed within the Dockerfile.base)
+    * pandas 
+    * numpy 
+    * matplotlib 
+    * opencv-python 
+    * python-math 
+    * pydicom 
+    * tensorflow 
+    * scikit-learn 
+    * tensorflow-addons 
+    * pylibjpeg 
+    * pylibjpeg-libjpeg 
+    * python-gdcm 
+    * tqdm 
+    * keras 
+    * imbalanced-learn 
+   
+##  How to use:
+  > All the scripts are located within the "workspace" dir - any edits you will need to make for your specific use case will be with "gridsearch.py". Once edits are done run ./build.sh to build your docker container. Specifics to edit within docker are the Dockerfile.base file for naming the container, pushing to git and libraries used. If you want integration with XNAT navigate to the "xnat" folder and edit the command.json documentation available at @ https://wiki.xnat.org/container-service/making-your-docker-image-xnat-ready-122978887.html#MakingyourDockerImage%22XNATReady%22-installing-a-command-from-an-xnat-ready-image
 
-- command2label.py
-    
-    Script used in `build.sh` to store `command.json` as a Docker image label.
+## Running (ON XNAT): 
+  * INCOMPLETE (NOT TESTED AS A CONTAINER ON XNAT)
+  * Will work as just python script convert to jupyternotebook and run on there. 
 
-- Dockerfile.base
+## Running in general: 
+  * Scripts heiarchy is that gridsearch.py generates data and lunches a gridsearchCV
+  * For my use cases i have dockersized it so I could run with access to GPU, your usecases may vary  
+  * There are arguments needed to run this pipline which can be found within the gridsearch.py script 
 
-    Used by `build.sh` as a base for the final `Dockerfile`.
-
-- command.json
-
-    XNAT specific format describing the interface between XNAT Container Service and the Docker image.
-
-- sample-code.py
-
-    Sample pyxnat code to demonstrate XNAT host and filesystem access.
-
-- sample-data folder
-
-    Sample project-level directory structure meant to represent a project-level input mount while running this container in XNAT.
-    
-    
-    
-### Docker from command line 
-The Docker image can be run on the command line, using the provided sample data and settings for a running XNAT host. When running this container via XNAT Container Service, these environment variables are set to real values at container run-time.
-
-The following Docker cli command assumes:
-XNAT username is 'admin'
-XNAT password is 'admin'
-XNAT host is 'localhost'
-Project label is 'test'
-
-`docker run -ti --rm  -e XNAT_HOST=http://localhost -e XNAT_PASS=admin -e XNAT_USER=admin -e PROJECT=test -v $PWD/sample-data/:/input  xnat/pyxnat-demo:latest python workspace/sample-code.py`
-
-You can also run the image interactively:
-
-`docker run -ti --rm  -e XNAT_HOST=http://localhost -e XNAT_PASS=admin -e XNAT_USER=admin -e PROJECT=test -v $PWD/sample-data/:/input  xnat/pyxnat-demo:latest bash`
-
-which opens `bash` in the running container. 
-
+## NOTES: 
+  * This dockerzed to run for my use case it CANNOT RUN as an actual docker nore can it run as a XNAT Container 
+  * Parts of the scripts within workspace were written with project specificity in mind so please keep that in mind as you use this code 
+  * It is recommended that you have some experience working with docker and specficially building containers for xnat for this to work for your use cases 
+  * If you just want to use the code for your own work without docker stuff just navigate to workspace copy the python files from it and edit them 
+  
+## Future: 
+   * Arguments so that users can run this without manualy modifying code 
+   * Potentially dockerizing it to be compatible with XNAT 
+   * generalizing code even more 
