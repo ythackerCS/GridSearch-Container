@@ -31,11 +31,14 @@
   * Will work as just python script convert to jupyternotebook and run on there. 
 
 ## Running in general: 
-  * Scripts heiarchy is that gridsearch.py generates data and lunches a gridsearchCV
+  * Gridsearch.py load data from mortality.csv makes arrays for trining/testing/val and lunches a gridsearchCV
   * For my use cases i have dockersized it so I could run with access to GPU, your usecases may vary  
   * There are arguments needed to run this pipline which can be found within the gridsearch.py script 
+  * there is an output file called params.txt which will be output at the end of the gridsearch with all results and best params found 
 
 ## NOTES: 
+  * Until gridsearch is complete no output is generated, so keep that in mind when you decide how many different paramerters to tweak or how big the array is for any given parameter
+  * Ideal use case is with a gpu to maximize performance, this runs 1 job at a time because I have not yet handeled the memory overflow error that crashes gridsearch when running multiple jobs at a time so use the "n_jobs=" parameter of gridsearch with caution  
   * This dockerzed to run for my use case it CANNOT RUN as an actual docker nore can it run as a XNAT Container 
   * Parts of the scripts within workspace were written with project specificity in mind so please keep that in mind as you use this code 
   * It is recommended that you have some experience working with docker and specficially building containers for xnat for this to work for your use cases 
